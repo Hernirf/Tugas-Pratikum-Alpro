@@ -43,7 +43,7 @@ jumlahMinum=0
 TotalHarga_Minum_SebelumDiskon=0
 TotalHarga_Makan_SebelumDiskon=0
 jumlahMakan=0
-while i=="y":
+while i=="y"or i=="Y":
     Daftar_menu()
     Daftar_diskon()
     Kode=str(input("Masukkan kode jenis pesanan: Makanan(1)/Minuman(2) "))
@@ -132,7 +132,7 @@ def penutup():
     print("""\n==========TERIMA KASIH TELAH BELANJA DI KANTIN BESTIE==========""" )
 
 emoney=str(input("Apakah pembayaran menggunakan E-money? y/n "))
-if emoney=="y":
+if emoney=="y" or emoney=="Y":
     diskonEmoney=TotalKeseluruhan*(5/100)
     totalAkhir=totalsemua-diskonEmoney
     rincian()
