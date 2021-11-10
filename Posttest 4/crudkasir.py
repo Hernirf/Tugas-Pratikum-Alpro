@@ -25,6 +25,7 @@ def show_menu():
     print("[4] Hapus Menu")
 
 def jenis():
+    print("\n")
     print("----------- JENIS ----------")
     print("[1] MAKANAN")
     print("[2] MINUMAN")
@@ -49,25 +50,28 @@ def Daftar_diskon():
 #Function Makanan
     # Tampilan Menu Makanan
 def Menu_Makanan():
-    tabelmakan=PrettyTable(["NO","MENU MAKANAN","HARGA"])
-    for index in range (len(Makanan)):
-        index+=1
-        tabelmakan.add_row([index,Makanan[index-1][1],Makanan[index-1][2]])
-    print(tabelmakan)
+    try:
+        tabelmakan=PrettyTable(["NO","MENU MAKANAN","HARGA"])
+        for index in range (len(Makanan)):
+            index+=1
+            tabelmakan.add_row([index,Makanan[index-1][1],Makanan[index-1][2]])
+        print(tabelmakan)
+    except:
+        print("Tidak ada menu makanan, harap masukkan kembali menu")
     # Menambahkan Menu Makanan
 def tambah_makanan():
     y="y"
     while y=="y":
         Menu_Makanan()
         Makan=["Makanan", str(input("Masukkan makanan: ")), int(input("Masukkan harga: "))]
-        letak=str(input("Ingin memilih letak? y/n "))
+        letak=str(input("Ingin memilih letak nomor menu? y/n "))
         if letak=="y":
-            urutan=int(input("Mau dimasukkan ke berapa "))
+            urutan=int(input("Nomor: "))
             Makanan.insert(urutan-1,Makan)
         else:
             Makanan.append(Makan)
         print("Menu berhasil ditambahkan")
-        y=str(input("Ingin menambahkan menu makanan lagi? y/n "))
+        y=str(input("Ingin menambahkan menu makanan? y/n "))
         #Mengubah Menu Makanan
 def ubah_makanan():
     y="y"
@@ -88,8 +92,10 @@ def hapus_makanan():
     Kondisi=int(input("Masukkan pilihan anda: "))
     if Kondisi==1:
         urutan=int(input("Menu ke berapa yang ingin dihapus? "))
-        print(Makanan[urutan-1])
-        del Makanan[urutan-1]
+        print((Makanan[urutan-1]))
+        delete=str(input("Apakah ingin menghapus menu y/n "))
+        if delete=="y":
+            del Makanan[urutan-1]
     elif Kondisi==2:
         for Makan in Makanan:
             Makan.clear()
@@ -98,23 +104,27 @@ def hapus_makanan():
 # Function menu minuman
     # Menampilkan menu minuman
 def Menu_Minuman():
-    tabelminum=PrettyTable(["NO","MENU MINUMAN","HARGA"])
-    for index in range (len(Minuman)):
-        index+=1
-        tabelminum.add_row([index,Minuman[index-1][1],Minuman[index-1][2]])
-    print(tabelminum)
+    try:
+        tabelminum=PrettyTable(["NO","MENU MINUMAN","HARGA"])
+        for index in range (len(Minuman)):
+            index+=1
+            tabelminum.add_row([index,Minuman[index-1][1],Minuman[index-1][2]])
+        print(tabelminum)
+    except:
+        print("Tidak ada menu minuman, harap masukkan kembali menu")
     # Menambahkan Menu Minuman
 def tambah_minuman():
     y="y"
     while y=="y":
         Menu_Minuman()
         Minum=["Minuman", str(input("Masukkan minuman: ")), int(input("Masukkan harga: "))]
-        letak=str(input("Ingin memilih letak? y/n "))
+        letak=str(input("Ingin memilih letak nomor menu? y/n "))
         if letak=="y":
-            urutan=int(input("Mau dimasukkan ke berapa "))
+            urutan=int(input("Nomor: "))
             Minuman.insert(urutan-1,Minum)
         else:
             Minuman.append(Minum)
+        print("Menu berhasil ditambahkan")
         y=str(input("Ingin menambahkan menu minuman lagi? y/n "))
     # Menghapus menu minuman
 def ubah_minuman():
@@ -139,8 +149,8 @@ def hapus_minuman():
         print(Minuman[urutan-1])
         del Minuman[urutan-1]
     elif Kondisi==2:
-        for Makan in Minuman:
-            Makan.clear()
+        for Minum in Minuman:
+            Minum.clear()
     else:
         print("Pilihan anda tidak ada dalam daftar")
 
@@ -174,18 +184,15 @@ def admin():
                     ubah_minuman()
                 n=str(input("Apakah ingin mengubah menu makanan atau minuman lagi? y/n "))
         elif menu==4:
-            n="y"
-            while n=="y":
-                jenis()
-                pilih=int(input("PILIH JENIS "))
-                if pilih==1:
-                    hapus_makanan()
-                elif pilih==2:
-                    hapus_minuman
-                n=str(input("Apakah ingin menghapus menu makanan atau minuman lagi? y/n "))
+            jenis()
+            pilih=int(input("PILIH JENIS "))
+            if pilih==1:
+                hapus_makanan()
+            elif pilih==2:
+                hapus_minuman()
         else:
             print("Kode tidak tersedia")
-        i=str(input("Apakah ingin kembali ke menu utama? y/n "))
+        i=str(input("Apakah ingin kembali ke menu utama admin? y/n "))
 
 def pelanggan():
     i="y"
@@ -280,11 +287,16 @@ while x=="y":
     print("""
 [1] ADMIN
 [2] PELANGGAN
+[3] KELUAR
 """)
     login=int(input("Login sebagai? "))
     if login==1:
         admin()
-    else:
+    elif login==2:
         pelanggan()
+    elif login==3:
+        exit()
+    else:
+        print("Kode salah!")
     x=str(input("Ingin kembali ke menu login? y/n "))
 print("Terima Kasih")
